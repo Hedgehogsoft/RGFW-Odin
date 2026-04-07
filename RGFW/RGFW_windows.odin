@@ -7,7 +7,7 @@ window_src :: struct {
     hOffset : u32, /*!< height offset for window */
     ctx : winapi.HGLRC, /*!< source graphics context */
     bitmap : winapi.HBITMAP,
-    
+    hdcMem  : winapi.HDC,
     maxSize : area, 
     minSize : area /* for setting max/min resize (RGFW_WINDOWS) */
 }
