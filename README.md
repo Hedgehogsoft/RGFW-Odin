@@ -9,28 +9,7 @@
 # About
 Odin bindings for RGFW, 
 
-RGFW is a free multi-platform single-header very simple-to-use framework library for creating GUI Libraries or simple GUI programs. it is meant to be used as a very small and flexible alternative library to GLFW. 
-
-
-The window backend supports XLib (UNIX), Cocoas (MacOS) and WinAPI (Windows)\
-The graphics backend supports OpenGL and buffer rendering.\
-You can use `window_setGPURender` to toggle GPU rendering and `window_setCPURender` to toggle CPU rendering
-
-CPU rendering is turned off by default, see the `basic-buffer.odin` example
-
-RGFW was designed as a backend for RSGL, but it can be used standalone or for other libraries, such as Raylib which uses it as an optional alternative backend.
-
-This library
-
-1) is single header and portable (written in C99 in mind)
-2) is very small compared to other libraries
-3) only depends on system API libraries, Winapi, X11, Cocoa
-4) lets you create a window with a graphics context (OpenGL, Vulkan or DirectX) and manage the window and its events only with a few function calls 
-
-This library does not
-
-1) Handle any rendering for you (other than creating your graphics context)
-2) do anything above the bare minimum in terms of functionality 
+Currently the graphics backend supports OpenGL, Metal and buffer rendering, WebGPU, Vulkan and DirectX helpers are not included. 
 
 ## building
 To build the Odin binding simple run
