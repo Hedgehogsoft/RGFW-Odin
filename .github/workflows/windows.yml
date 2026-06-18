@@ -62,7 +62,7 @@ jobs:
     - name: Build app for release
       run: |
         set "vs_path=%ProgramFiles%\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
-        build-libs.bat
+        build.bat
       
       shell: cmd
       if: |
