@@ -7747,7 +7747,7 @@ RGFW_bool RGFW_FUNC(RGFW_readClipboardPtr) (u8* buffer, size_t capacity, RGFW_da
 	if (XGetSelectionOwner(_RGFW->display, CLIPBOARD) == _RGFW->helperWindow) {
 		dataTransfer->length = _RGFW->unixClipboard->length;
 		if (buffer != NULL && _RGFW->unixClipboard->data != NULL) {
-			if (_RGFW->unixClipboard->length > capacity) return RGFW_FALSE;
+			if (capacity == 0 || _RGFW->unixClipboard->length > capacity) return RGFW_FALSE;
 
 			RGFW_MEMCPY((char*)buffer, _RGFW->unixClipboard->data, _RGFW->unixClipboard->length);
 		}
