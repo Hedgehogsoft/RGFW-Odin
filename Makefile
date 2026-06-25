@@ -56,18 +56,18 @@ else
 	$(ODIN) run basic-buffer.odin -file
 endif
 
-RGFW/RGFW.o:
-	$(CC) -I./RGFW $(CUSTOM_CFLAGS) RGFW/RGFW.c -c $(LIBS) -fPIC -o RGFW/RGFW.o
+source/RGFW.o:
+	$(CC) -I./RGFW $(CUSTOM_CFLAGS) source/RGFW.c -c $(LIBS) -fPIC -o source/RGFW.o
 
 RGFW/RGFW$(LIB_EXT):
 ifeq ($(detected_OS),Windows)
 	.\build-libs.bat
 else
-	make RGFW/RGFW.o
-	$(AR) rcs RGFW.a RGFW/RGFW.o
+	make source/RGFW.o
+	$(AR) rcs RGFW.a source/RGFW.o
 	mv RGFW.a RGFW/RGFW.a
 endif
 
 clean:
-	rm -f RGFW/RGFW.o RGFW/RGFW$(LIB_EXT)
-	rm -f RGFW/RGFW.lib RGFW/RGFW.obj
+	rm -f source/RGFW.o RGFW/RGFW$(LIB_EXT)
+	rm -f RGFW/RGFW.lib source/RGFW.obj
