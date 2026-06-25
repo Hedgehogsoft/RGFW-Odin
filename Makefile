@@ -1,9 +1,9 @@
 CC = gcc
 
 ODIN = odin
-CUSTOM_CFLAGS = 
+CUSTOM_CFLAGS =
 
-LIBS := -w -lgdi32 -lm -lopengl32 -lwinmm -ggdb 
+LIBS := -w -lgdi32 -lm -lopengl32 -lwinmm -ggdb
 LIB_EXT = .lib
 
 ifneq (,$(filter $(CC),winegcc x86_64-w64-mingw32-gcc))
@@ -40,7 +40,7 @@ all:
 	$(ODIN) build basic-buffer.odin -file
 
 build-RGFW:
-	make RGFW/RGFW$(LIB_EXT)	
+	make RGFW/RGFW$(LIB_EXT)
 
 debug:
 ifeq ($(detected_OS),Windows)
@@ -57,7 +57,7 @@ else
 endif
 
 RGFW/RGFW.o:
-	$(CC) $(CUSTOM_CFLAGS) RGFW/RGFW.c -c $(LIBS) -fPIC -o RGFW/RGFW.o
+	$(CC) -I. $(CUSTOM_CFLAGS) RGFW/RGFW.c -c $(LIBS) -fPIC -o RGFW/RGFW.o
 
 RGFW/RGFW$(LIB_EXT):
 ifeq ($(detected_OS),Windows)
