@@ -3,4 +3,5 @@
 #define RGFW_EGL
 #define RGFW_VULKAN
 #define RGFW_IMPLEMENTATION
+#define RGFW_USE_XDL
 #include "RGFW.h"
