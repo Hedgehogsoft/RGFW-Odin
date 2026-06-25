@@ -9,7 +9,7 @@
 # About
 Odin bindings for RGFW,
 
-Currently the graphics backend supports OpenGL, Vulkan, Metal and buffer rendering, WebGPU, and DirectX helpers are not included.
+Currently the graphics backend supports OpenGL, EGL, Vulkan, Metal and buffer rendering, WebGPU, and DirectX helpers are not included.
 
 ## building
 To build the Odin binding simple run
