@@ -22,7 +22,7 @@ drawRect :: proc(buffer : []u8, r : rect, color: ^[3]u8) {
 }
 
 main :: proc() {
-	RGFW.init();
+	RGFW.init("basic buffer", 0);
     win := RGFW.createWindow("RGFW Example Window", 500, 500, 500, 500, .windowCenter);
 
     mon := RGFW.window_getMonitor(win);
