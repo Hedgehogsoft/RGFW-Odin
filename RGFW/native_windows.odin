@@ -2,9 +2,9 @@
 
 package RGFW
 
-import "vendor:directx/dxc"
+import "vendor:directx/dxgi"
 
 @(default_calling_convention="c", link_prefix="RGFW_")
 foreign {
-	window_createSwapChain_DirectX :: proc(win : ^window, pFactory : ^IDXGIFactory, pDevice : ^IUnknown, swapchain : ^^IDXGISwapChain) -> i32 ---
+	window_createSwapChain_DirectX :: proc(win : ^window, pFactory : ^dxgi.IFactory1, pDevice : ^dxgi.IUnknown, swapchain : ^^dxgi.ISwapChain) -> i32 ---
 }
