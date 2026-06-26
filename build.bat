@@ -32,7 +32,7 @@ if defined vs_path (
 pushd source
 if not exist ..\RGFW\lib mkdir ..\RGFW\lib
 echo Building libraries to ..\RGFW\RGFW\lib folder
-cl -nologo -MT -TC -c -O2 RGFW.c
+cl /I./ -nologo -MT -TC -c -O2 RGFW.c
 lib -nologo RGFW.obj -out:..\RGFW\lib\RGFW_msvc.lib
 del *.obj
 popd
