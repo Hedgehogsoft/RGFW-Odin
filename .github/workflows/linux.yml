@@ -63,7 +63,7 @@ jobs:
 
     - name: Build Library
       run: |
-        make build-RGFW
+        make 
       if: matrix.bits == 64
     
     - name: Generate Artifacts
