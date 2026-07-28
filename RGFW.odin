@@ -460,7 +460,7 @@ eventWait :: enum(i32) {
 }
 
 /*! @brief generic event callback function type */
-genericFunc:: #type proc "c" (e : ^event)
+genericFunc:: #type proc "c" (#by_ptr e : event)
 
 /*! brief structure that holds an array to callback data*/
 callbacks :: struct {
@@ -566,7 +566,7 @@ debugInfo :: struct {
 }
 
 /*! @brief callback function type for debug messags */
-debugFunc :: proc "c" (info : ^debugInfo)
+debugFunc :: proc "c" (#by_ptr info : debugInfo)
 
 /*! @brief function pointer equivalent of rawptr */
 //proc :: proc()
@@ -1867,7 +1867,7 @@ foreign native {
 	* @param requestedType the requested clipboard data type to attempt to read
 	* @return A pointer to the clipboard data object or NULL on failure.
 	*/
-	readClipboard::proc(requestedType : dataTransferType) -> ^dataTransfer ---
+	readClipboard :: proc(requestedType : dataTransferType) -> ^dataTransfer ---
 
 	/**!
 	* @brief Reads clipboard data into your object pointer using your provided buffer, or returns the required length if the buffer is NULL or bufferCapacity is 0.
@@ -1877,13 +1877,13 @@ foreign native {
 	* @param data [OUTPUT] A pointer to the dataTransfer object that will receive the clipboard data. (cannot be NULL)
 	* @return returns TRUE on success and FALSE on failure
 	*/
-	readClipboardPtr :: proc(requestedType : dataTransferType, buffer: [^]u8, capacity: c.size_t, data: ^dataTransfer) -> bool ---
+	readClipboardPtr :: proc(requestedType : dataTransferType, buffer : [^]u8, capacity : c.size_t, data : ^dataTransfer) -> bool ---
 
 	/**!
 	* @brief Reads clipboard data as a string.
 	* @return A pointer to the clipboard data object or NULL on failure.
 	*/
-	readClipboardString::proc() -> ^dataTransfer ---
+	readClipboardString :: proc() -> ^dataTransfer ---
 
 	/**!
 	* @brief Reads clipboard string data into your object pointer using your provided buffer, or returns the required length if the buffer is NULL or bufferCapacity is 0.
@@ -1899,7 +1899,7 @@ foreign native {
 	* @param data The data to be written to the clipboard, including the length and type.
 	* @param returns TRUE on success and FALSE on failure
 	*/
-	writeClipboard::proc(data: ^dataTransfer) -> bool ---
+	writeClipboard :: proc(#by_ptr data: dataTransfer) -> bool ---
 	/** @} */
 
 
@@ -2252,13 +2252,13 @@ foreign native {
 	* @brief Pushes an event into the standard RGFW event queue.
 	* @param event A pointer to the event to be added to the queue.
 	*/
-	eventQueuePush :: proc(event: ^event) ---
+	eventQueuePush :: proc(#by_ptr event: event) ---
 
 	/**!
 	* @brief Pushes an event into the standard RGFW event queue and call the callback.
 	* @param event A pointer to the event to be added to the queue.
 	*/
-	eventQueuePushAndCall :: proc(event: ^event) ---
+	eventQueuePushAndCall :: proc(#by_ptr event: event) ---
 
 	/**!
 	* @brief Clears all events from the RGFW event queue without processing them.
