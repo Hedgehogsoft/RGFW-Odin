@@ -14,19 +14,10 @@ Backends supported includes, X11, Cocoa and Windows, Web has not been tested and
 Currently the graphics backend supports OpenGL, EGL, Vulkan, Metal, DirectX and buffer rendering, WebGPU helpers are not included.
 
 ## building
-To build the Odin binding simple run
-`make build-RGFW`
-you can also run `make` to build and then run an example program or `make debug` to build from scratch then run an example program.
+To build the RGFW binaries for the Odin binding run
+`make` or `./build.bat` on Windows
 
-# examples
-![examples](https://github.com/ColleagueRiley/RGFW/blob/main/screenshot.PNG?raw=true)
-
-## basic
-A basic example can be found in `basic.odin`, it includes a basic OpenGL example of just about all of RGFW's functionalities.
-
-## basic buffer
-A basic example can be found in `basic-buffer.odin`, it includes a basic OpenGL example of buffer rendering with odin
-
+# Getting started
 ## a very simple example
 ```c
 package main
@@ -62,15 +53,19 @@ This can be compiled with
 
 `odin run [file].odin -file`
 
+## other examples
+![examples](https://github.com/ColleagueRiley/RGFW/blob/main/screenshot.PNG?raw=true)
+
+You can find more examples [here](examples) 
+
+They can all be compiled with 
+
+```sh
+cd example/[example]
+odin run .
+```
+
 # Contacts
 - email : ColleagueRiley@gmail.com
 - discord : ColleagueRiley
 - discord server : https://discord.gg/pXVNgVVbvh
-
-# Documentation
-More information about RGFW can be found on the [RGFW repo](https://RSGL.github.io/RGFW)
-
-There is a lot of in-header-documentation, but more documentation can be found [here](https://RSGL.github.io/RGFW)
-
-If you wish to build the documentation yourself, there is also a Doxygen file attached.
-

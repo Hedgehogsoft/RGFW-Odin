@@ -1,6 +1,5 @@
 CC = gcc
 
-ODIN = odin
 CUSTOM_CFLAGS =
 
 LIBS := -w -lgdi32 -lm -lopengl32 -lwinmm -ggdb
@@ -33,31 +32,7 @@ ifeq ($(detected_OS),Linux)
 	LIB_EXT = .a
 endif
 
-
-all:
-	make lib/RGFW$(LIB_EXT)
-	$(ODIN) run examples/basic/basic.odin -file
-	$(ODIN) run examples/basic-buffer/basic-buffer.odin -file
-	$(ODIN) run examples/clipboard/clipboard.odin -file
-
-build-RGFW:
-	make lib/RGFW$(LIB_EXT)
-
-debug:
-ifeq ($(detected_OS),Windows)
-	make clean
-	.\build-libs.bat
-	make lib/RGFW$(LIB_EXT)
-	$(ODIN) run examples/basic/basic.odin -file
-	$(ODIN) run examples/basic-buffer/basic-buffer.odin -file
-	$(ODIN) run examples/clipboard/clipboard.odin -file
-else
-	make clean
-	make lib/RGFW$(LIB_EXT)
-	$(ODIN) run examples/basic/basic.odin -file
-	$(ODIN) run examples/basic-buffer/basic-buffer.odin -file
-	$(ODIN) run examples/clipboard/clipboard.odin -file
-endif
+all: lib/RGFW$(LIB_EXT)
 
 source/RGFW.o:
 	$(CC) -I./source/RGFW -I./source $(CUSTOM_CFLAGS) source/RGFW.c -c $(LIBS) -fPIC -o source/RGFW.o
