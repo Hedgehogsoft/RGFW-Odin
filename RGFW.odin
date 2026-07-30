@@ -554,6 +554,7 @@ errorCode :: enum(u8) {
 	errMetal,
 	errPlatform,
 	errEventQueue,
+	errNoInit,
 	infoWindow, infoBuffer, infoGlobal, infoOpenGL,
 	warningWayland, warningOpenGL
 }
