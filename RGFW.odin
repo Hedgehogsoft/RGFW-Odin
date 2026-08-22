@@ -953,7 +953,7 @@ foreign native {
 	* @param request The modeRequest describing how to handle the mode change.
 	* @return TRUE if the mode was successfully applied, otherwise FALSE.
 	*/
-	monitor_requestMode :: proc(mon : ^monitor, mode : ^monitorMode, request : ^modeRequest) -> bool ---
+	monitor_requestMode :: proc(mon : ^monitor, mode : ^monitorMode, request : modeRequest) -> bool ---
 
 	/**!
 	* @brief Sets a specific display mode for a monitor directly.
@@ -971,7 +971,7 @@ foreign native {
 	* @param request The modeRequest that defines the comparison parameters.
 	* @return TRUE if both modes are equivalent, otherwise FALSE.
 	*/
-	monitorModeCompare :: proc(mode, mode2 : ^monitorMode, request : ^modeRequest) -> bool ---
+	monitorModeCompare :: proc(mode, mode2 : ^monitorMode, request : modeRequest) -> bool ---
 
 	/**!
 	* @brief Scales a monitor’s mode to match a window’s size.
