@@ -51,7 +51,7 @@ main :: proc() {
     mon := rgfw.window_getMonitor(window)
     s.width  = f32(w)
     s.height = f32(h)
-    s.pixel_ratio   = mon.pixelRatio
+    s.pixel_ratio = mon.pixelRatio
 
     load_gl()
     r_init()
@@ -134,7 +134,7 @@ main :: proc() {
 
 
 text_width :: proc(font: mu.Font, text: string) -> i32 {
-    return r_get_text_width(text);
+    return r_get_text_width(text)
 }
 
 text_height :: proc(mu.Font) -> i32 {
@@ -144,8 +144,8 @@ text_height :: proc(mu.Font) -> i32 {
 update_viewport :: proc() {
     vw := i32(s.width * s.pixel_ratio)
     vh := i32(s.height * s.pixel_ratio)
-    gl.Viewport(0, 0, vw, vh);
-    gl.Scissor(0, 0, vw, vh);
+    gl.Viewport(0, 0, vw, vh)
+    gl.Scissor(0, 0, vw, vh)
 }
 
 
