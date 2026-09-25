@@ -23,15 +23,15 @@ jobs:
     permissions:
       contents: write  # for actions/upload-release-asset to upload release asset
     runs-on: macos-latest
-    
+
     env:
       RELEASE_NAME: RGFW-Odin-dev_macos
-    
+
     steps:
     - name: Checkout
       uses: actions/checkout@master
       with:
-        submodules: recursive  
+        submodules: recursive
 
     - name: Setup Release Version
       run: |
@@ -40,28 +40,28 @@ jobs:
       if: github.event_name == 'release' && github.event.action == 'published'
 
     - name: Setup Environment
-      run: | 
+      run: |
         mkdir build
         cd build
         mkdir ${{ env.RELEASE_NAME }}
         cd ${{ env.RELEASE_NAME }}
         cd ../..
-   
+
     # Generating static + shared library, note that i386 architecture is deprecated
     # Defining GL_SILENCE_DEPRECATION because OpenGL is deprecated on macOS
     - name: Build Library
       run: |
         clang --version
-        
+
         # Extract version numbers from Makefile
         brew install grep
-        
+
         # Build RGFW arm64 dynamic
-        make lib/RGFW.a CUSTOM_CFLAGS="-target arm64-apple-macos11 -DGL_SILENCE_DEPRECATION"
-        mv lib/RGFW.a /tmp/libRGFW_arm64.a
+        make lib/RGFW_osx.a CUSTOM_CFLAGS="-target arm64-apple-macos11 -DGL_SILENCE_DEPRECATION"
+        mv lib/RGFW_osx.a /tmp/libRGFW_osx_arm64.a
 
         # Build RGFW x86_64 dynamic
-        make lib/RGFW.a CUSTOM_CFLAGS="-target x86_64-apple-macos10.12 -DGL_SILENCE_DEPRECATION"
+        make lib/RGFW_osx.a CUSTOM_CFLAGS="-target x86_64-apple-macos10.12 -DGL_SILENCE_DEPRECATION"
       #  make Odin/odin
       #  make ODIN=Odin/odin
 
@@ -71,13 +71,13 @@ jobs:
         cp -v *.odin README.md ./build/${{ env.RELEASE_NAME }}
         cd build
         tar -czvf ${{ env.RELEASE_NAME }}.tar.gz ${{ env.RELEASE_NAME }}
-        
+
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.RELEASE_NAME }}.tar.gz
         path: ./build/${{ env.RELEASE_NAME }}.tar.gz
-        
+
     - name: Upload Artifact to Release
       uses: softprops/action-gh-release@v1
       with:
