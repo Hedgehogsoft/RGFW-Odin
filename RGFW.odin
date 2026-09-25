@@ -468,13 +468,24 @@ callbacks :: struct {
 	arr : [eventType]genericFunc /*!< an array of all the callbacks */
 }
 
+fullscreenMode :: enum(u8) {
+	None = 0,
+	/*!< borderless/windowed fullscreen | the window changes it's size to match the monitor's current mode
+										   the window is not hidden and maintains it's size when it is unfocused */
+	Borderless, /*!< borderless/windowed fullscreen */
+	/*!< exclusive fullscreen | the monitor's mode tries to change to match the window's size.
+								The original mode is toggled when the window goes in and out of focus and
+								the window is hidden when it is not in focus */
+	Exclusive, /*!< exclusive fullscreen */
+};
+
 /*! @brief optional bitwise arguments for making a windows, these can be OR'd together */
 windowFlag :: enum(c.int) {
 	NoBorder, /*!< the window doesn't have a border / frame / decor */
 	NoResize, /*!< the window cannot be resized by the user */
 	AllowDND, /*!< the window supports drag and drop */
 	HideMouse, /*! the window should hide the mouse (can be toggled later on using `window_showMouse`) */
-	Fullscreen, /*!< the window is fullscreen by default */
+	FullscreenExclusive, /*!< the window is exclusive fullscreen by default */
 	Translucent, /*!< the window is translucent (only properly works on X11 and MacOS, although it's meant for for windows) */
 	Transparent = Translucent, /*!< the window is translucent (only properly works on X11 and MacOS, although it's meant for for windows) */
 	Center, /*! center the window on the screen */
@@ -490,10 +501,10 @@ windowFlag :: enum(c.int) {
 	CaptureMouse, /*!< capture the mouse mouse mouse on window creation */
 	OpenGL, /*!< create an OpenGL context (you can also do this manually with window_createContext_OpenGL) */
 	EGL, /*!< create an EGL context (you can also do this manually with window_createContext_EGL) */
+	FullscreenBorderless, /*!< the window is borderless fullscreen by default */
 }
 
 windowFlags           :: bit_set[windowFlag; u32]
-windowedFullscreen    :: windowFlags{.NoBorder, .Maximize}
 windowCaptureRawMouse :: windowFlags{.CaptureMouse, .RawMouse}
 
 /*! @brief the types of icon to set */
@@ -1565,9 +1576,9 @@ foreign native {
 	/**!
 	* @brief toggles fullscreen mode for the window
 	* @param win a pointer to the target window
-	* @param fullscreen TRUE to enable fullscreen, FALSE to disable
+	* @param fullscreen the fullscreen mode to use RGFW_fullscreenNone, RGFW_fullscreenBorderless, RGFW_fullscreenExclusive
 	*/
-	window_setFullscreen :: proc(win: ^window, fullscreen : bool) ---
+	window_setFullscreen :: proc(win: ^window, fullscreen : fullscreenMode) ---
 
 	/**!
 	* @brief centers the window on the screen
