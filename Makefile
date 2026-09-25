@@ -1,9 +1,10 @@
 CC = gcc
 
+NAME = RGFW
+ODIN = odin
 CUSTOM_CFLAGS =
 
-LIBS := -w -lgdi32 -lm -lopengl32 -lwinmm -ggdb
-LIB_EXT = .lib
+LIBS := -w -ggdb
 
 ifneq (,$(filter $(CC),winegcc x86_64-w64-mingw32-gcc))
     detected_OS := Windows
@@ -20,34 +21,44 @@ else
 endif
 
 ifeq ($(detected_OS),Windows)
-	LIBS := -ggdb -lshell32 -lgdi32 -lopengl32 -lwinmm
-	LIB_EXT = .dll
+	LIB_EXT = _msvc.lib
 endif
 ifeq ($(detected_OS),Darwin)        # Mac OS X
-	LIBS := -lm -framework Foundation -framework AppKit -framework OpenGL -framework CoreVideo -w
-	LIB_EXT = .a
+	LIB_EXT = _osx.a
 endif
 ifeq ($(detected_OS),Linux)
-    LIBS := -lXrandr -lX11 -lm -lGL
-	LIB_EXT = .a
+	LIB_EXT = _linux.a
 endif
 
-all: lib/RGFW$(LIB_EXT)
+all:
+	make lib/$(NAME)$(LIB_EXT)
 
-source/RGFW.o:
-	$(CC) -I./source/RGFW -I./source $(CUSTOM_CFLAGS) source/RGFW.c -c $(LIBS) -fPIC -o source/RGFW.o
+build-$(NAME):
+	make lib/$(NAME)$(LIB_EXT)
 
-lib/RGFW$(LIB_EXT):
-	mkdir -p lib
+debug:
 ifeq ($(detected_OS),Windows)
+	make clean
 	.\build-libs.bat
+	make lib/$(NAME)$(LIB_EXT)
 else
-	make source/RGFW.o
-	$(AR) rcs RGFW.a source/RGFW.o
-	mv RGFW.a lib/RGFW.a
+	make clean
+	make lib/$(NAME)$(LIB_EXT)
+endif
+
+source/$(NAME).o:
+	$(CC) -I./source $(CUSTOM_CFLAGS) source/$(NAME).c -c $(LIBS) -fPIC -o source/$(NAME).o
+
+lib/$(NAME)$(LIB_EXT): source/$(NAME).o
+ifeq ($(detected_OS),Windows)
+	.\build.bat
+else
+	mkdir -p lib
+	$(AR) rcs $(NAME)$(LIB_EXT) source/$(NAME).o
+	mv $(NAME)$(LIB_EXT) lib/
 endif
 
 clean:
-	rm -f source/RGFW.o
+	rm -f $(NAME).o source/$(NAME).o
 	rm -r -f lib
-	rm -f RGFW.lib source/RGFW.obj
+	rm -f $(NAME).obj $(NAME).lib source/$(NAME).obj
