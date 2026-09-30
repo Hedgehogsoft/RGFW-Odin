@@ -27,10 +27,10 @@ import "RGFW"
 import gl "vendor:OpenGL"
 
 main :: proc() {
-    RGFW.init("example", .initOpenGL);
+    RGFW.init("example", .OpenGL);
     defer RGFW.deinit();
 
-	window := RGFW.createWindow("window", 200, 200, 200, 200, .windowCenter | .windowOpenGL);
+	window := RGFW.createWindow("window", 200, 200, 200, 200, .Center | .OpenGL);
 	RGFW.window_makeCurrentContext_OpenGL(window);
 
 	gl.load_up_to(3, 3, RGFW.setProcAddress_OpenGL)
