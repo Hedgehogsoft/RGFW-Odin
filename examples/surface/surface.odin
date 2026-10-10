@@ -1,4 +1,4 @@
-package main
+package rgfw_surface_example
 
 import "core:fmt"
 import RGFW "../../"
