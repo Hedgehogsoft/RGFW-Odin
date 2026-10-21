@@ -19,33 +19,30 @@ To build the RGFW binaries for the Odin binding run
 
 # Getting started
 ## a very simple example
-```c
+```odin
 package main
 
-import "core:fmt"
 import "RGFW"
 import gl "vendor:OpenGL"
 
 main :: proc() {
-    RGFW.init("example", .OpenGL);
-    defer RGFW.deinit();
+	RGFW.init("example", {.OpenGL})
+	defer RGFW.deinit()
 
-	window := RGFW.createWindow("window", 200, 200, 200, 200, .Center | .OpenGL);
-	RGFW.window_makeCurrentContext_OpenGL(window);
+	window := RGFW.createWindow("window", 200, 200, 200, 200, {.Center | .OpenGL})
+	defer RGFW.window_close(window)
 
+	RGFW.window_makeCurrentContext_OpenGL(window)
 	gl.load_up_to(3, 3, RGFW.setProcAddress_OpenGL)
 
-	for (!RGFW.window_shouldClose(window)) {
-		RGFW.pollEvents();
+	for !RGFW.window_shouldClose(window) {
+		RGFW.pollEvents()
 
+		gl.ClearColor(0, 0, 0, 1)
 		gl.Clear(gl.COLOR_BUFFER_BIT)
-		gl.ClearColor(0, 0, 0, 1.0)
 
-		RGFW.window_swapBuffers_OpenGL(window);
+		RGFW.window_swapBuffers_OpenGL(window)
 	}
-
-
-	RGFW.window_close(window);
 }
 ```
 
